@@ -15,11 +15,12 @@ class BookController extends Controller
     public function store (Request $request) {
 
         $messages = [
-            'title.required' => 'el campo título es obligatorio'
+            'title.required' => 'el campo título es obligatorio',
+            'title.unique' => 'el título ya está registrado'
         ];
 
         $newBook = $request->validate([
-            'title' => 'required|max:255',
+            'title' => ['required','unique:books'],
             'author' => 'max:255',
             'editorial' => 'max:255',
             'pages' => '',
