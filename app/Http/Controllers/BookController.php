@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\book;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\BookRequest;
 
 class BookController extends Controller
 {
@@ -13,7 +14,7 @@ class BookController extends Controller
         return view ('index', compact('books'));
     }
 
-    public function store (Request $request) {
+    public function store (BookRequest $request) {
 
         $messages = [
             'title.required' => 'el campo título es obligatorio',
@@ -23,7 +24,7 @@ class BookController extends Controller
         if($request->file('img')) {
             $img = Storage::url($request->file("img")->store("public/img"));
         } else {
-            $img = 'not-image';
+            $img = 'storage/img/rple4ZaXDCrfqqLexcJ2qQXDrCE5fasV4wAcaNBR.jpg';
         }
 
         $newBook = Book::create([
