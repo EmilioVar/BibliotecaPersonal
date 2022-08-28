@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\book;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -19,16 +20,35 @@ class BookController extends Controller
             'title.unique' => 'el título ya está registrado'
         ];
 
-        $newBook = $request->validate([
+        if($request->file('img')) {
+            $img = Storage::url($request->file("img")->store("public/img"));
+        } else {
+            $img = 'not-image';
+        }
+
+        $newBook = Book::create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'editorial' => $request->editorial,
+            'pages' => $request->pages,
+            'opinion' => $request->opinion,
+            'votation' => $request->votation,
+            'img' => $img
+        ], $messages);
+
+        /* $newBook = $request->validate([
             'title' => ['required','unique:books'],
             'author' => 'max:255',
             'editorial' => 'max:255',
             'pages' => '',
             'opinion' => 'max:1000',
-            'votation' => 'max:5'
-        ], $messages);
+            'votation' => 'max:5',
+            'img' => $img
+        ], $messages); */
 
-        Book::create($newBook);
+        /* Book::create($newBook); */
+
+        $newBook->saveOrFail();
 
         return redirect( route ('index'))->with('success', '<div class="alert alert-success"> Cargado correctamente! </div>');
     }

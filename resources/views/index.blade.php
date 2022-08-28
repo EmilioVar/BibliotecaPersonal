@@ -18,7 +18,7 @@
                 @foreach ($errors->all() as $error)
                 <li class="alert alert-danger">{{ $error }}</li>
                 @endforeach
-                <form action="store" method="POST">
+                <form action="store" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="container mb-3">
                         <label class="form-label" for="title">Título</label>
@@ -50,6 +50,10 @@
                             <option value="5">5</option>
                         </select>
                     </div>
+                    <div class="container mb-3">
+                        <label class="form-label" for="image">Imagen de portada</label>
+                        <input name="img" class="form-control" type="file">
+                    </div>
                     <div class="container mb-3 text-center">
                         <button class="btn btn-primary"type="submit">Añadir libro</button>
                     </div>
@@ -61,14 +65,14 @@
                     @foreach($books as $book) 
                     <div class="col-4">
                         <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
+                            <img loading="lazy" src=" {{ $book->img }}" class="card-img-top" alt="imagen">
                             <div class="card-body">
                               <h5 class="card-title">{{ $book->title }}</h5>
                               <p class="card-text">{{ $book->author }}</p>
                               <a href="#" class="btn btn-primary">Go somewhere</a>
                             </div>
                           </div>
-                    </div>  
+                    </div>
                     @endforeach
                 </div>
             </div>
