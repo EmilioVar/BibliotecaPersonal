@@ -13,6 +13,11 @@ class BookController extends Controller
     }
 
     public function store (Request $request) {
+
+        $messages = [
+            'title.required' => 'el campo título es obligatorio'
+        ];
+
         $newBook = $request->validate([
             'title' => 'required|max:255',
             'author' => 'max:255',
@@ -20,10 +25,10 @@ class BookController extends Controller
             'pages' => '',
             'opinion' => 'max:1000',
             'votation' => 'max:5'
-        ]);
+        ], $messages);
 
         Book::create($newBook);
 
-        return redirect( route ('index'))->with('success', 'enviado correctamente!');
+        return redirect( route ('index'))->with('success', '<div class="alert alert-success"> Cargado correctamente! </div>');
     }
 }

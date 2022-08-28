@@ -12,42 +12,66 @@
 
 </head>
 <body>
-    {{ Session::get('success') }}
-    <form action="store" method="POST">
-        @csrf
-        <label for="title">Titulo</label>
-        <input value="{{ old('title')}}" name="title" type="text">
-        <label for="author">Autor</label>
-        <input value="{{ old('author')}}" name="author" type="text">
-        <label for="editorial">Editorial</label>
-        <input value="{{ old('editorial')}}" name="editorial" type="text">
-        <label for="pages">nº de páginas</label>
-        <input value="{{ old('pages')}}" name="pages" type="number">
-        <textarea name="opinion" id="opinion" cols="30" rows="10"></textarea>
-        <select value={{ old('votation') }} name="votation" id="votation">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        <button type="submit">Añadir libro</button>
-    </form>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            @foreach($books as $book) 
-                <div class="col-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">{{ $book->title }}</h5>
-                          <p class="card-text">{{ $book->author }}</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                      </div>
-                </div>  
-            @endforeach
+            <div class="col-3">
+                @foreach ($errors->all() as $error)
+                <li class="alert alert-danger">{{ $error }}</li>
+                @endforeach
+                <form action="store" method="POST">
+                    @csrf
+                    <div class="container mb-3">
+                        <label class="form-label" for="title">Título</label>
+                        <input placeholder="título" class="form-control" value="{{ old('title')}}" name="title" type="text">
+                    </div>
+                    <div class="container mb-3">
+                        <label class="form-label" for="author">Autor</label>
+                        <input placeholder="autor" class="form-control" value="{{ old('author')}}" name="author" type="text">
+                    </div>
+                    <div class="container mb-3">
+                        <label class="form-label" for="editorial">Editorial</label>
+                        <input placeholder="editorial" class="form-control" value="{{ old('editorial')}}" name="editorial" type="text">
+                    </div>
+                    <div class="container mb-3">
+                        <label class="form-label" for="pages">nº de páginas</label>
+                        <input placeholder="numero de páginas" class="form-control" value="{{ old('pages')}}" name="pages" type="number">
+                    </div>
+                    <div class="container mb-3">
+                        <textarea placeholder="explica tu opinión. Que te ha parecido, lo que quieras comentar..." class="form-control" name="opinion" id="opinion" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="container mb-3">
+                        <label for="votation">Valoración</label>
+                        <select class="form-control" value={{ old('votation') }} name="votation" id="votation">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="container mb-3 text-center">
+                        <button class="btn btn-primary"type="submit">Añadir libro</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-9">
+                {!! Session::get('success') !!}
+                <div class="row">
+                    @foreach($books as $book) 
+                    <div class="col-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ $book->title }}</h5>
+                              <p class="card-text">{{ $book->author }}</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                          </div>
+                    </div>  
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 </body>
