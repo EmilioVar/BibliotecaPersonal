@@ -10,7 +10,7 @@ use App\Http\Requests\BookRequest;
 class BookController extends Controller
 {
     public function index () {
-        $books = Book::latest()->get();
+        $books = Book::latest()->paginate(6);
         return view ('index', compact('books'));
     }
 

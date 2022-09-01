@@ -17,3 +17,7 @@ use App\Http\Controllers\BookController;
 Route::get('/', [BookController::class, 'index'])->name('index');
 
 Route::post('/store', [BookController::class, 'store'])->name('store');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
