@@ -11,7 +11,7 @@ class AuthorsOption extends Component
     
     public function render()
     {
-        $authors = Author::all();
+        $authors = Author::orderBy('name')->get();
         return view('livewire.authors-option', compact('authors'));
     }
 }

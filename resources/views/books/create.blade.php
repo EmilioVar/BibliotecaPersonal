@@ -1,9 +1,30 @@
 <x-layout>
     <h1>formulario</h1>
-    <livewire:create-author />
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <!-- modal author -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    añadir autor
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo autor</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <livewire:create-author />
+                        </div>
+                    </div>
+                </div>
+                <!-- end modal author -->
                 <form action="{{ route('book.create') }}" method="post">
                     @csrf
                     <div class="mb-3">
@@ -12,15 +33,6 @@
                     </div>
                     <!-- author -->
                     <livewire:authors-option />
-                    <!-- modal author -->
-                    
-                    <!-- end modal author -->
-                    <a href="">¿no está? ¡agregalo!</a><br>
-                    <select class="js-example-basic-single" name="state">
-                        @foreach ($authors as $author)
-                            <option value="{{ $author->id }}">{{ $author->name . ' ' . $author->firstName }}</option>
-                        @endforeach
-                    </select>
 
                     <div class="mb-3">
                         <label for="author" class="form-label">Título</label>
