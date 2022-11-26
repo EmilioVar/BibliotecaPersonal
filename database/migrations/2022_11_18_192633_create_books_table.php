@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
-            $table->string('author')->nullable();
-            $table->string('editorial')->nullable();
+            $table->string('title');
             $table->integer('pages')->nullable();
-            $table->text('opinion')->nullable();
-            $table->integer('votation')->nullable();
+            $table->year('year')->nullable();
+            $table->string('editorial')->nullable();
+            $table->string('where')->nullable();
+            $table->string('category')->nullable();
+            $table->integer('vote')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

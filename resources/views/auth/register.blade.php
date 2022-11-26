@@ -1,77 +1,66 @@
-@extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+<x-layout>
+    <x-slot name="title">Rapido - Register</x-slot>
+    <!-- ======= REGISTER ======= -->
+    <div class="container-fluid bg-accent vh-100">
+           <div class="row mb-5 pb-5">
+                <div class="col-12 col-md-8 ms-5">
+                    <div class="d-flex flex-column align-items-center ">
+                    <div class="form-content justify-content-center mb-5 pb-5">
+                        <!--FORM TITLE -->
+                        <div class="section-title">
+                            <h2 class="form-title space-around">Crear cuenta
+                                <!-- <span> Rapido.es</span> -->
+                            </h2>
+                            <!-- <p>Ut possimus qui ut temporibus culpa velit autem.</p> -->
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        @endif
+                        <!--FORM FIELDS -->
+                        <form action="/register" method="POST" role="form" class="php-email-form">
+                            @csrf
+                            <!--Name -->
+                            <div class="form-field-edit form-field space-around my-2">
+                              <input type="text" name="name" id="name" class="form-control forms_field-input" placeholder="Tu nombre" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                              <div class="validate"></div>
                             </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <!--Email -->
+                            <div class="form-field-edit form-field space-around my-2">
+                                <input type="email" name="email" id="email" class="form-control forms_field-input"
+                                    placeholder="Tu correo" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                <div class="validate"></div>
                             </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                            <!--Password -->
+                            <div class="form-field-edit form-field space-around my-2">
+                                <input type="password" name="password" id="password" class="form-control forms_field-input"
+                                    placeholder="Tu contraseña">
+                                <div class="validate"></div>
                             </div>
-                        </div>
-                    </form>
+                             <!--Password Confirmation -->
+                             <div class="form-field-edit form-field space-around my-2">
+                                <input type="password" name="password_confirmation" id="password" class="form-control forms_field-input"
+                                    placeholder="Tu contraseña, una vez más">
+                                <div class="validate"></div>
+                            </div>
+                            <!--Button-Register-->
+                            <button type="submit" class=" form-button-edit text-center space-around my-2">
+                                Crear cuenta
+                            </button>
+                        </form>
+                    </div>
+                    <div class="form-link mt-4 d-flex">
+                    <p class="text-white">¿Ya eres de los nuestros?</p>
+                    <a class="text-reset text-decoration-none ps-2" href="{{route('login')}}"><u>¡Entra ya!</u></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+    </section>
+    </x-layout>

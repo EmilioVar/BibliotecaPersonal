@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('books', function (Blueprint $table) {
-            $table->text('img')->after('votation')->nullable();
+        Schema::create('books_users_pivot', function (Blueprint $table) {
+            $table->foreignId('book_id')->onDelete("SET NULL")->constrained();
+            $table->foreignId('user_id')->onDelete("SET NULL")->constrained();
         });
     }
 
@@ -25,8 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('books', function (Blueprint $table) {
-            Schema::dropColumn('img');
-        });
+        Schema::dropIfExists('books_users_pivot');
     }
 };
