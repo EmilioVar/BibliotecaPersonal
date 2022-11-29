@@ -1,4 +1,14 @@
 <x-layout>
+    @if (session('authorCreated'))
+    <div class="alert alert-success">
+        {{ session('authorCreated') }}
+    </div>
+@endif
+@if (session('bookCreated'))
+    <div class="alert alert-success">
+        {{ session('bookCreated') }}
+    </div>
+@endif
     <h1>formulario</h1>
     <div class="container">
         <div class="row">
@@ -32,12 +42,8 @@
                         <input name="title" type="text" class="form-control" id="title" placeholder="Título">
                     </div>
                     <!-- author -->
-                    <livewire:authors-option />
-
-                    <div class="mb-3">
-                        <label for="author" class="form-label">Título</label>
-                        <input name="author" type="text" class="form-control" id="title" placeholder="Título">
-                    </div>
+                    <input type="number" id="author_id" value="3" name="author_id">
+                    {{-- <livewire:authors-option /> --}}
                     <div class="mb-3">
                         <label for="editorial" class="form-label">Editorial</label>
                         <input name="editorial" type="text" class="form-control" id="editorial"
@@ -76,4 +82,11 @@
             </div>
         </div>
     </div>
+    <x-slot:script>
+        <script>
+            $(document).ready(function() {
+                $('.authorSelect').select2();
+            });
+        </script>
+    </x-slot> 
 </x-layout>

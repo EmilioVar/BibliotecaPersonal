@@ -19,6 +19,7 @@ class BookController extends Controller
     public function store(Request $request) {
         $book = Book::create([
             'title' => $request['title'],
+            'author' => $request['author_id'],
             'pages' => $request['pages'],
             'year' => $request['year'],
             'editorial' => $request['editorial'],
@@ -27,7 +28,8 @@ class BookController extends Controller
             'vote' => $request['vote'],
             'comment' => $request['comment'],
         ]);
+        dd($book);
         Auth::user()->books()->save($book);
-        return back();
+        return back()->with('bookCreated', '¡libro cresdfgsdfgado correctamente!');
     }
 }

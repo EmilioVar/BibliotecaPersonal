@@ -38,7 +38,7 @@ class CreateAuthor extends Component
 
         $this->emit('authorAdd');
 
-        return back();
+        return redirect(route ('book.create'))->with('authorCreated','autor creado correctamente');
     }
     public function render()
     {
