@@ -12,14 +12,20 @@ use Illuminate\Support\Facades\Auth;
 class BookController extends Controller
 {
     public function create() {
+        $books = Book::orderBy('title')->get();
         $authors = Author::orderBy('name')->get();
-        return view('books.create', compact('authors'));
+        return view('books.create', compact('authors','books'));
     }
 
     public function store(Request $request) {
+
+        if (Auth::user()->books()->where('title', $request['title'])->exists()) {
+            dd('si existe');
+        }
+
         $book = Book::create([
             'title' => $request['title'],
-            'author' => $request['author_id'],
+            'author_id' => $request['author_id'],
             'pages' => $request['pages'],
             'year' => $request['year'],
             'editorial' => $request['editorial'],
@@ -28,7 +34,6 @@ class BookController extends Controller
             'vote' => $request['vote'],
             'comment' => $request['comment'],
         ]);
-        dd($book);
         Auth::user()->books()->save($book);
         return back()->with('bookCreated', '¡libro cresdfgsdfgado correctamente!');
     }
