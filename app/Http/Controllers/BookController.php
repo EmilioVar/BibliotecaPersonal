@@ -18,7 +18,7 @@ class BookController extends Controller
     }
 
     public function store(Request $request) {
-
+        //FIXME: eso no vale para nada, pero para algo servirá
         if (Auth::user()->books()->where('title', $request['title'])->exists()) {
             dd('si existe');
         }
