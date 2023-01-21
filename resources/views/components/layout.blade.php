@@ -18,7 +18,7 @@
     
 </head>
 <body>
-    <x-navbar />
+    <x-nav-bar />
     {{$slot}}
     <x-footer />
     @vite(['resources/js/app.js'])
